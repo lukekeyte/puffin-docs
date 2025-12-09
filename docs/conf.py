@@ -34,7 +34,7 @@ html_theme_options = {
 
 html_static_path = ['_static']
 html_css_files = ['custom.css']
-html_logo = '_static/puffin_logo.png'
+html_logo = '_static/puffin_logo_v2.png'
 
 # Enable numbering for headers
 myst_heading_anchors = 3
