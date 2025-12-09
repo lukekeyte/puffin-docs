@@ -1,4 +1,4 @@
-project = 'lukenet'
+project = 'puffin'
 copyright = '2025, Luke Keyte'
 author = 'Luke Keyte'
 release = '1.0'
@@ -32,7 +32,7 @@ html_static_path = ['_static']
 
 html_css_files = ['custom.css']
 
-html_logo = '_static/simba_logo.png'
+html_logo = '_static/puffin_logo.png'
 
 # Enable numbering for headers
 myst_heading_anchors = 3
