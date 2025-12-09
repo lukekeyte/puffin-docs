@@ -1,8 +1,8 @@
 # PUFFIN
 
-**<u>P</u>ython <u>U</u>tility <u>F</u>or <u>F</u><u>U</u><u>V</u> <u>I</u>rradiated disk de<u>N</u>sity structures**
+**<u>P</u>ython <u>U</u>tility <u>F</u>or <u>F</u>UV <u>I</u>rradiated disk de<u>N</u>sity structures**
 
-`PUFFIN` (Python Utility For FUV Irradiated disk deNsities) is a parametric framework for efficiently generating density structures of externally irradiated protoplanetary disks with photoevaporative winds. It provides a computationally efficient alternative to full radiation-hydrodynamic simulations, which can be used as inputs to chemical models, enabling systematic exploration of disk-wind chemistry across wide parameter ranges.
+`PUFFIN` is a parametric framework for efficiently generating density structures of externally irradiated protoplanetary disks with photoevaporative winds. It provides a computationally efficient alternative to full radiation-hydrodynamic simulations, which can be used as inputs to chemical models, enabling systematic exploration of disk-wind chemistry across wide parameter ranges.
 
 ```{toctree}
 :maxdepth: 2
@@ -14,7 +14,7 @@ physical_model/index
 
 ## Installation
 
-Install PUFFIN directly from source:
+Install `PUFFIN` directly from source:
 ```bash
 git clone https://github.com/lukekeyte/PUFFIN.git
 cd PUFFIN
@@ -30,18 +30,18 @@ pip install -e .
   - Surface densities: 10¹ to 10⁴ g cm⁻²
   - External FUV fields: 10² to 10⁵ G₀
 * **Flexible mass-loss rates**: User-specified values or automatic interpolation from FRIED grid
-* **Easy integration**: Output compatible with radiative transfer codes (DALI, RADMC-3D)
+* **Easy integration**: Output compatible with chemicall modelling and radiative transfer codes (eg. DALI, RADMC-3D)
 
 ## Dependencies
 
+- matplotlib
 - numpy
 - scipy  
-- matplotlib
 
 ## Quick Links
 
-* [GitHub Repository](https://github.com/lukekeyte/PUFFIN)
-* [FRIED Grid](https://ui.adsabs.harvard.edu/abs/2023MNRAS.526.4315H/abstract)
+* [PUFFIN GitHub Repository](https://github.com/lukekeyte/PUFFIN)
+* [FRIED grid of mass-loss rates for externally irradiated protoplanetary disks](https://ui.adsabs.harvard.edu/abs/2023MNRAS.526.4315H/abstract)
 
 ## Author
 
