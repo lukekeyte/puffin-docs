@@ -1,7 +1,8 @@
-project = 'puffin'
+project = 'PUFFIN'
 copyright = '2025, Luke Keyte'
 author = 'Luke Keyte'
 release = '1.0'
+version = '1.0'
 
 extensions = [
     'myst_parser',
@@ -16,22 +17,23 @@ myst_enable_extensions = [
 
 myst_update_mathjax = False
 
+# Specify the master document
+master_doc = 'index'
+
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 html_theme = 'sphinx_rtd_theme'
 
 html_theme_options = {
-    'navigation_depth': 3,  # Only show top level
-    'collapse_navigation': False,  # Optional: controls if navigation entries should be collapsed
-    'logo_only': True,  # Display only the logo
-    'display_version': False,  # Optional: hide version number
+    'navigation_depth': 3,
+    'collapse_navigation': False,
+    'logo_only': True,
+    'display_version': False,
 }
 
 html_static_path = ['_static']
-
 html_css_files = ['custom.css']
-
 html_logo = '_static/puffin_logo.png'
 
 # Enable numbering for headers
