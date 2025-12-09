@@ -1,6 +1,6 @@
-# SIMBA: Astrophysical Chemical Network Solver
+# PUFFIN: Astrophysical Chemical Network Solver
 
-SIMBA is a comprehensive solver for chemical reaction networks in astrophysical environments. It is designed to model and simulate complex chemical processes in various cosmic settings such as the interstellar medium (ISM), molecular clouds, and protoplanetary disks.
+Puffin is...
 
 ## Features
 
@@ -16,10 +16,10 @@ SIMBA is a comprehensive solver for chemical reaction networks in astrophysical 
 
 ## Installation
 
-You can install SIMBA directly from the source:
+You can install PUFFIN directly from the source:
 
 ```bash
-pip install simba_chem
+pip install puffin_disk
 ```
 
 ## Dependencies
@@ -33,7 +33,7 @@ pip install simba_chem
 
 ## Model Components
 
-SIMBA consists of several key components:
+PUFFIN consists of several key components:
 - Elements: Handling of chemical elements
 - Species: Management of atomic and molecular species
 - Gas: Gas phase parameters and properties
@@ -44,7 +44,7 @@ SIMBA consists of several key components:
 
 ## Citation
 
-If you use SIMBA in your research, please cite:
+If you use PUFFIN in your research, please cite:
 [Citation information to be added]
 
 ## License
