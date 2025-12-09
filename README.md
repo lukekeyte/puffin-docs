@@ -1,4 +1,4 @@
-# PUFFIN: Astrophysical Chemical Network Solver
+# PUFFIN: Python Utililty For Fuv Irradiated disk deNsity structures
 
 Puffin is...
 
