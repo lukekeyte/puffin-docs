@@ -1,6 +1,6 @@
 # PUFFIN
 
-**Python Utility For FUV Irradiated disk deNsity structures**
+**<u>P</u>ython <u>U</u>tility <u>F</u>or <u>F</u><u>U</u><u>V</u> <u>I</u>rradiated disk de<u>N</u>sity structures**
 
 `PUFFIN` (Python Utility For FUV Irradiated disk deNsities) is a parametric framework for efficiently generating density structures of externally irradiated protoplanetary disks with photoevaporative winds. It provides a computationally efficient alternative to full radiation-hydrodynamic simulations, which can be used as inputs to chemical models, enabling systematic exploration of disk-wind chemistry across wide parameter ranges.
 
