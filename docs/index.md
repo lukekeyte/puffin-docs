@@ -4,14 +4,6 @@
 
 `PUFFIN` is a parametric framework for efficiently generating density structures of externally irradiated protoplanetary disks with photoevaporative winds. It provides a computationally efficient alternative to full radiation-hydrodynamic simulations, which can be used as inputs to chemical models, enabling systematic exploration of disk-wind chemistry across wide parameter ranges.
 
-```{toctree}
-:maxdepth: 2
-:caption: Contents
-
-quick_start/index
-physical_model/index
-```
-
 ## Installation
 
 Install `PUFFIN` directly from source:
@@ -38,11 +30,6 @@ pip install -e .
 - numpy
 - scipy  
 
-## Quick Links
-
-* [PUFFIN GitHub Repository](https://github.com/lukekeyte/PUFFIN)
-* [FRIED grid of mass-loss rates for externally irradiated protoplanetary disks](https://ui.adsabs.harvard.edu/abs/2023MNRAS.526.4315H/abstract)
-
 ## Author
 
 Luke Keyte (l.keyte@qmul.ac.uk)  
@@ -51,3 +38,11 @@ Astronomy Unit, Queen Mary University of London
 ## License
 
 This project is licensed under the MIT License.
+
+```{toctree}
+:maxdepth: 2
+:caption: Contents
+
+quick_start/index
+physical_model/index
+```
