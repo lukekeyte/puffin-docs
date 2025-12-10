@@ -8,7 +8,7 @@ The approach is based on extensive calibration against the FRIED grid of hydrody
 
 ## 1D Model Formulation
 
-The one-dimensional model extends from $r = 0$ to $r = R_{\rm out}$ and consists of three distinct regions that are smoothly connected through a "maximum density" prescription.
+The one-dimensional model extends from $r = 0$ to $r = R_{\rm out}$ and consists of three distinct regions: the disk interior, a photoevaporative wind, and a transition region that smoothly connects them.
 
 ### Disk Interior
 
@@ -24,7 +24,7 @@ $$
 \gamma = A \left(\frac{M_*}{M_\odot}\right)^\alpha \left(\frac{r_d}{\rm au}\right)^\beta \left(\frac{F_{\rm FUV}}{100\,G_0}\right)^\varepsilon
 $$
 
-where $A = 0.77$, $\alpha = 0.10$, $\beta = 0.78$, and $\varepsilon = 0.07$ are empirically calibrated parameters. This scaling ensures that more massive stars (which bind material more tightly) and stronger FUV fields produce steeper tapers.
+where $A = 0.77$, $\alpha = 0.10$, $\beta = 0.78$, and $\varepsilon = 0.07$ are empirically calibrated parameters. This scaling ensures that the disk transitions smoothly to the wind, with more massive stars (which bind material more tightly) and stronger FUV fields produce steeper tapers.
 
 The midplane temperature assumes a power-law dependence:
 
@@ -40,7 +40,7 @@ $$
 
 where $h = c_s/\Omega$ is the pressure scale height, $c_s$ is the sound speed, and $\Omega = \sqrt{GM_*/r^3}$ is the Keplerian angular velocity.
 
-### Spherically Diverging Wind
+### Photoevaporative Wind
 
 For $r \geq r_d$, a spherically diverging wind component is computed from the mass-loss rate:
 
@@ -60,7 +60,7 @@ with $T_0 = 200$ K, bounded between 10 K and 3000 K. This shallower scaling prio
 
 ### Transition Region
 
-For weaker external FUV fields ($\lesssim 1000$ G₀), hydrodynamical models show an extended plateau region where density decreases more gradually than the exponential taper alone would predict. This is captured through an interpolation prescription:
+A smooth transition between the disk and wind is implemented using the $\gamma$ parameter described above. Additionally, for weaker external FUV fields ($\lesssim 1000$ G₀), hydrodynamical models show an extended plateau region where density decreases more gradually than the exponential taper alone would predict. This is captured through an interpolation prescription:
 
 $$
 \rho_{\rm plateau}(r) = \rho_{\rm disk}(r_d) \left(\frac{\rho_{\rm wind}(r)}{\rho_{\rm disk}(r_d)}\right)^{f(r)}
@@ -101,7 +101,7 @@ This ensures physically consistent behavior: the disk dominates in the interior,
 
 ## 2D Model Extension
 
-The two-dimensional model extends the 1D framework with full vertical structure, realistic temperature profiles, and a geometrically motivated wind implementation.
+The two-dimensional model extends the 1D framework to include the full vertical structure, with a spherically diverging wind that smoothly connects to the disk surface and outer edge.
 
 ### Disk Component with Hydrostatic Equilibrium
 
@@ -201,10 +201,9 @@ This allows the physically relevant prescription to naturally emerge at each loc
 
 ### Physical Constants
 
-- **$G_0 = 1.6 \times 10^{-3}$ erg cm⁻² s⁻¹**: Habing unit for FUV field strength
-- **$N_{\rm ss} = 8 \times 10^{14}$ cm⁻²**: Surface site density (used in some contexts)
-- **$\mu_{\rm wind} = 1.3$**: Mean molecular weight in dust-depleted wind
-- **$\mu_{\rm disk} = 2.3$**: Mean molecular weight in disk
+- $G_0 = 1.6 \times 10^{-3}$ erg cm⁻² s⁻¹: Habing unit for FUV field strength
+- $\mu_{\rm wind} = 1.3$: Mean molecular weight in dust-depleted wind
+- $\mu_{\rm disk} = 2.3$: Mean molecular weight in disk
 
 <br/>
 
@@ -229,9 +228,9 @@ Typical agreement is within a factor of ~2 across ≥98% of the validated parame
 
 ## Important Notes
 
-**Temperature and Radiation Fields**: The temperature profiles and FUV fields computed during model construction are used *only* to establish the density structure through hydrostatic equilibrium. These should **never** be used directly for chemical modeling or synthetic observations. Instead, the density structures should serve as inputs to dedicated radiative transfer codes (e.g., DALI, RADMC-3D) that compute self-consistent temperature and radiation fields.
+**Temperature and Radiation Fields**: The temperature profiles and FUV fields computed during model construction are used *only* to establish the density structure through hydrostatic equilibrium. These should **never** be used directly for chemical modeling or synthetic observations. Instead, the density structures should serve as inputs to dedicated radiative transfer codes (e.g., `DALI`, `RADMC-3D`) that compute self-consistent temperature and radiation fields.
 
-**Model Scope**: PUFFIN focuses exclusively on FUV-driven external photoevaporation. The model does not include:
+**Model Scope**: `PUFFIN` focuses exclusively on FUV-driven external photoevaporation. The model does not include:
 - External EUV radiation
 - Internal photoevaporation from the central star
 - Magnetic fields or MHD effects
