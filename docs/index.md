@@ -6,12 +6,19 @@
 
 ## Installation
 
-Install `PUFFIN` directly from source:
+`PUFFIN` is a standalone Python script. Simply clone or download the repository:
 ```bash
-git clone https://github.com/lukekeyte/PUFFIN.git
-cd PUFFIN
-pip install -e .
+git clone https://github.com/yourusername/puffin.git
+cd puffin
 ```
+**Repository structure:**
+```
+puffin/
+├── FRIEDV2_ALL_fPAH1p0_growth.dat   # FRIED grid lookup table
+├── helpers.py                       # Helper functions
+└── puffin.py                        # Main code (1D and 2D models)
+```
+
 ## Key Features
 
 * **Fast generation**: Create 1D/2D density structures in seconds to minutes (vs. weeks/months for hydrodynamical simulations)
@@ -32,8 +39,10 @@ pip install -e .
 
 ## Author
 
-Luke Keyte (l.keyte@qmul.ac.uk)  
-Astronomy Unit, Queen Mary University of London
+**Luke Keyte**  
+Postdoctoral Researcher  
+Queen Mary University of London  
+l.keyte@qmul.ac.uk
 
 ## License
 

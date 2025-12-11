@@ -20,12 +20,17 @@
 
 ## Installation
 
-Install `PUFFIN` directly from source:
-
+`PUFFIN` is a standalone Python script. Simply clone or download the repository:
 ```bash
-git clone https://github.com/lukekeyte/PUFFIN.git
-cd PUFFIN
-pip install -e .
+git clone https://github.com/yourusername/puffin.git
+cd puffin
+```
+**Repository structure:**
+```
+puffin/
+├── FRIEDV2_ALL_fPAH1p0_growth.dat   # FRIED grid lookup table
+├── helpers.py                       # Helper functions
+└── puffin.py                        # Main code (1D and 2D models)
 ```
 
 ## Dependencies

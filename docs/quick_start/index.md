@@ -3,9 +3,9 @@
 ### 1D Model
 
 ```python
-import puffin_disk as puffin
+import puffin
 
-# Set input values
+# Example input values
 m_star    = 1.0       # M_sun
 sigma_1au = 1000      # g cm^-2
 F_FUV     = 1e5       # G_0
@@ -31,9 +31,9 @@ plt.show()
 ### 2D Model
 
 ```python
-import puffin_disk as puffin
+import puffin
 
-# Set input values
+# Example input values
 m_star    = 1.0       # M_sun
 sigma_1au = 1000      # g cm^-2
 F_FUV     = 1e5       # G_0
