@@ -8,8 +8,7 @@
 
 `PUFFIN` is a standalone Python script. Simply clone or download the repository:
 ```bash
-git clone https://github.com/yourusername/puffin.git
-cd puffin
+git clone https://github.com/lukekeyte/PUFFIN.git
 ```
 **Repository structure:**
 ```
