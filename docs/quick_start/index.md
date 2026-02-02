@@ -3,7 +3,7 @@
 ### 1D Model
 
 ```python
-import puffin
+import puffin_disk
 
 # Example input values
 m_star    = 1.0       # M_sun
@@ -12,7 +12,7 @@ F_FUV     = 1e5       # G_0
 r_d       = 100       # AU
 
 # Run PUFFIN
-model = puffin.DiskModel1D(m_star, sigma_1au, F_FUV, r_d)                                        
+model = puffin_disk.DiskModel1D(m_star, sigma_1au, F_FUV, r_d)                                        
 ```
 
 The model returns 1D arrays for radius and density. These can then be plotted:
@@ -31,7 +31,7 @@ plt.show()
 ### 2D Model
 
 ```python
-import puffin
+import puffin_disk
 
 # Example input values
 m_star    = 1.0       # M_sun
@@ -40,7 +40,7 @@ F_FUV     = 1e5       # G_0
 r_d       = 100       # AU
 
 # Run PUFFIN
-model = puffin.DiskModel2D(m_star, sigma_1au, F_FUV, r_d)                                        
+model = puffin_disk.DiskModel2D(m_star, sigma_1au, F_FUV, r_d)                                        
 ```
 
 The model returns 1D arrays for radius and height, and a 2D density array. These can then be plotted:

@@ -6,17 +6,22 @@
 
 ## Installation
 
-`PUFFIN` is a standalone Python script. Simply clone or download the repository:
+Install `puffin_disk` directly from PyPI using pip:
+
 ```bash
-git clone https://github.com/lukekeyte/PUFFIN.git
+pip install puffin_disk
 ```
-**Repository structure:**
-```
-puffin/
-├── FRIEDV2_ALL_fPAH1p0_growth.dat   # FRIED grid lookup table
-├── helpers.py                       # Helper functions
-└── puffin.py                        # Main code (1D and 2D models)
-```
+
+This will automatically install all required dependencies (numpy, scipy, matplotlib).
+
+
+### Requirements
+
+- Python 3.8 or higher
+- numpy >= 1.20.0
+- scipy >= 1.7.0
+- matplotlib >= 3.3.0
+
 
 ## Key Features
 
