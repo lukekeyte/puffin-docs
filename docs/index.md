@@ -6,21 +6,22 @@
 
 ## Installation
 
-Install `puffin_disk` directly from PyPI using pip:
+Install `PUFFIN` directly from PyPI using pip:
 
 ```bash
 pip install puffin_disk
 ```
 
-This will automatically install all required dependencies (numpy, scipy, matplotlib).
-
-
-### Requirements
-
+**Requirements:**
 - Python 3.8 or higher
 - numpy >= 1.20.0
 - scipy >= 1.7.0
 - matplotlib >= 3.3.0
+
+**Dependencies:**
+- numpy
+- scipy
+- matplotlib
 
 
 ## Key Features
@@ -35,11 +36,23 @@ This will automatically install all required dependencies (numpy, scipy, matplot
 * **Flexible mass-loss rates**: User-specified values or automatic interpolation from FRIED grid
 * **Easy integration**: Output compatible with chemicall modelling and radiative transfer codes (eg. DALI, RADMC-3D)
 
-## Dependencies
 
-- matplotlib
-- numpy
-- scipy  
+## Citation
+
+If you use `PUFFIN` as part of your research, please cite our overview article:
+
+```text
+@misc{keyte_haworth_2026,
+      title={A parametric model for externally irradiated protoplanetary disks with photoevaporative winds}, 
+      author={Luke Keyte and Thomas J. Haworth},
+      year={2026},
+      eprint={2602.02011},
+      archivePrefix={arXiv},
+      primaryClass={astro-ph.EP},
+      url={https://arxiv.org/abs/2602.02011}, 
+}
+```
+
 
 ## Author
 
@@ -48,9 +61,23 @@ Postdoctoral Researcher
 Queen Mary University of London  
 l.keyte@qmul.ac.uk
 
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit issues or pull requests on GitHub. For major changes, please open an issue first to discuss proposed modifications.
+
+## Support
+
+For questions, bug reports, or feature requests:
+- Open an issue on [GitHub](https://github.com/lukekeyte/PUFFIN)
+- Email: l.keyte@qmul.ac.uk
+- Check the [documentation](https://puffin-disk.readthedocs.io) for detailed guides
+
+
 ## License
 
 This project is licensed under the MIT License.
+
 
 ```{toctree}
 :maxdepth: 2
