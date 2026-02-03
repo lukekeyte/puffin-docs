@@ -61,7 +61,7 @@ plt.show()
 ![2D PUFFIN model density structure.](/_static/fig_2d_structure.png)
 
 
-### Tweaking the Model
+### Tweaking the Models
 
 Both the 1D and 2D PUFFIN models include several optional parameters that allow you to customize the numerical grid and physical behavior. These parameters are passed directly to the `DiskModel1D` and `DiskModel2D` constructors and can be directly adjusted.
 
@@ -71,7 +71,7 @@ The available options are summarized below.
 |---------|------|-------------|
 | `n_points` | `int`, optional | Number of grid points used in the radial (and vertical, for 2D) directions. Default is **1000**. Higher resolution (≥1000) is recommended for accurate hydrostatic equilibrium solutions. |
 | `gridsize` | `float`, optional | Outer radius of the computational grid in AU. Default is `min(8 * r_d, 800)`. |
-| `m_dot` | `float`, optional | Mass-loss rate in M\_☉ yr⁻¹. If `None`, the value is interpolated from the FRIED grid. For 2D models, a factor of 2 is applied to account for geometry. |
+| `m_dot` | `float`, optional | Mass-loss rate in M☉ yr⁻¹. If `None`, the value is interpolated from the FRIED grid. For 2D models, a factor of 2 is applied (see 'Physical Model' documentation).|
 | `gamma` | `float`, optional | Exponential cutoff parameter for the surface density profile. If `None`, this is calculated using an internal scaling relation. |
 | `p` | `float`, optional | Power-law index controlling the bowl transition associated with the disk radius (`r_d`). Default is **0.2**. |
 | `q` | `float`, optional | Power-law index controlling the bowl transition associated with the external FUV field (`F_FUV`). Default is **0.4**. |
