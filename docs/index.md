@@ -86,4 +86,5 @@ This project is licensed under the MIT License.
 quick_start/index
 physical_model/index
 user_guide/index
+faq/index
 ```
