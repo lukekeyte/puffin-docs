@@ -34,7 +34,7 @@ pip install puffin_disk
   - Surface densities: 10¹ to 10⁴ g cm⁻²
   - External FUV fields: 10² to 10⁵ G₀
 * **Flexible mass-loss rates**: User-specified values or automatic interpolation from FRIED grid
-* **Easy integration**: Output compatible with chemicall modelling and radiative transfer codes (eg. DALI, RADMC-3D)
+* **Easy integration**: Output compatible with chemical modelling and radiative transfer codes (eg. `DALI`, `RADMC-3D`)
 
 
 ## Citation
@@ -71,7 +71,7 @@ Contributions are welcome! Please feel free to submit issues or pull requests on
 For questions, bug reports, or feature requests:
 - Open an issue on [GitHub](https://github.com/lukekeyte/PUFFIN)
 - Email: l.keyte@qmul.ac.uk
-- Check the [documentation](https://puffin-disk.readthedocs.io) for detailed guides
+- Check the [documentation](https://puffin.readthedocs.io) for detailed guides
 
 
 ## License
@@ -85,4 +85,5 @@ This project is licensed under the MIT License.
 
 quick_start/index
 physical_model/index
+user_guide/index
 ```
