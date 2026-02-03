@@ -27,6 +27,8 @@ plt.loglog(r_array, rho_array)
 plt.show()                                       
 ```
 
+![1D PUFFIN model radial density profile.](/_static/fig_1d_profile.png)
+
 
 ### 2D Model
 
