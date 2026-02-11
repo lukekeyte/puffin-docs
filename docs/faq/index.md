@@ -4,7 +4,7 @@
 
 #### How do I install PUFFIN?
 
-PUFFIN can be installed directly from PyPI using pip:
+`PUFFIN` can be installed directly from PyPI using pip:
 
 ```bash
 pip install puffin_disk
@@ -20,7 +20,7 @@ pip install -e .
 
 #### What are the system requirements?
 
-PUFFIN requires:
+`PUFFIN` requires:
 - Python 3.8 or higher
 - numpy >= 1.20.0
 - scipy >= 1.7.0
@@ -189,8 +189,8 @@ All outputs use these same units, so you may need to convert for specific applic
 
 Typical runtimes depend on resolution:
 - **1000 grid points**: ~2-3 minutes
-- **1500 grid points**: ~5-10 minutes
-- **2000 grid points**: ~15-30 minutes
+- **1500 grid points**: ~5 minutes
+- **2000 grid points**: ~10 minutes
 
 If your model is taking significantly longer:
 
