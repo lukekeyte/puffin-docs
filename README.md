@@ -4,6 +4,9 @@
 
 `PUFFIN` is a parametric framework for efficiently generating density structures of externally irradiated protoplanetary disks with photoevaporative winds. It provides a computationally efficient alternative to full radiation-hydrodynamic simulations, which can be used as inputs to chemical models, enabling systematic exploration of disk-wind chemistry across wide parameter ranges.
 
+<span style="color: darkred;">NEW RELEASE 11/02/26 (Version 1.0.0)</span>
+
+
 ## Installation
 
 Install `PUFFIN` directly from PyPI using pip:

@@ -4,6 +4,8 @@
 
 `PUFFIN` is a parametric framework for efficiently generating density structures of externally irradiated protoplanetary disks with photoevaporative winds. It provides a computationally efficient alternative to full radiation-hydrodynamic simulations, which can be used as inputs to chemical models, enabling systematic exploration of disk-wind chemistry across wide parameter ranges.
 
+<span style="color: darkred;">NEW RELEASE 11/02/26 (Version 1.0.0)</span>
+
 ## Installation
 
 Install `PUFFIN` directly from PyPI using pip:
@@ -42,14 +44,21 @@ pip install puffin_disk
 If you use `PUFFIN` as part of your research, please cite our overview article:
 
 ```text
-@misc{keyte_haworth_2026,
-      title={A parametric model for externally irradiated protoplanetary disks with photoevaporative winds}, 
-      author={Luke Keyte and Thomas J. Haworth},
-      year={2026},
-      eprint={2602.02011},
-      archivePrefix={arXiv},
-      primaryClass={astro-ph.EP},
-      url={https://arxiv.org/abs/2602.02011}, 
+@ARTICLE{2026arXiv260202011K,
+       author = {{Keyte}, Luke and {Haworth}, Thomas J.},
+        title = "{A parametric model for externally irradiated protoplanetary disks with photoevaporative winds}",
+      journal = {arXiv e-prints},
+     keywords = {Earth and Planetary Astrophysics, Instrumentation and Methods for Astrophysics},
+         year = 2026,
+        month = feb,
+          eid = {arXiv:2602.02011},
+        pages = {arXiv:2602.02011},
+          doi = {10.48550/arXiv.2602.02011},
+archivePrefix = {arXiv},
+       eprint = {2602.02011},
+ primaryClass = {astro-ph.EP},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2026arXiv260202011K},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
 }
 ```
 

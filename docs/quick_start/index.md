@@ -73,9 +73,11 @@ The available options are summarized below.
 | `gridsize` | `float`, optional | Outer radius of the computational grid in AU. Default is `min(8 * r_d, 800)`. |
 | `m_dot` | `float`, optional | Mass-loss rate in M☉ yr⁻¹. If `None`, the value is interpolated from the FRIED grid. For 2D models, a factor of 2 is applied (see 'Physical Model' documentation).|
 | `gamma` | `float`, optional | Exponential cutoff parameter for the surface density profile. If `None`, this is calculated using an internal scaling relation. |
-| `p` | `float`, optional | Power-law index controlling the bowl transition associated with the disk radius (`r_d`). Default is **0.2**. |
-| `q` | `float`, optional | Power-law index controlling the bowl transition associated with the external FUV field (`F_FUV`). Default is **0.4**. |
+| `p` | `float`, optional | Power-law index controlling the disk-wind transition associated with the disk radius (`r_d`). Default is **0.2**. |
+| `q` | `float`, optional | Power-law index controlling the disk-wind transition associated with the external FUV field (`F_FUV`). Default is **0.4**. |
+| `k` | `float`, optional | Parameter controlling steepness of vertical temperature gradient. Default is **1.75**. |
 | `N_ITER` | `int`, optional | Number of hydrostatic equilibrium iterations. Default is **20**. Increasing this may improve convergence at the cost of runtime. |
+| `verbose` | `bool` | Turn on/off messages to the console. Default is **TRUE**. |
 
 In most cases, the default settings provide a good balance between accuracy and performance. Advanced users may wish to increase resolution or iteration count when exploring detailed vertical structure or testing convergence.
 
