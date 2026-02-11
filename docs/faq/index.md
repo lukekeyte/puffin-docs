@@ -1,8 +1,8 @@
 ## Frequently Asked Questions
 
-## Installation & Setup
+### Installation & Setup
 
-### How do I install PUFFIN?
+#### How do I install PUFFIN?
 
 PUFFIN can be installed directly from PyPI using pip:
 
@@ -18,7 +18,7 @@ cd PUFFIN
 pip install -e .
 ```
 
-### What are the system requirements?
+#### What are the system requirements?
 
 PUFFIN requires:
 - Python 3.8 or higher
@@ -26,9 +26,9 @@ PUFFIN requires:
 - scipy >= 1.7.0
 - matplotlib >= 3.3.0
 
-The package works on Windows, macOS, and Linux. Note that Windows users will see ASCII replacements for some Unicode characters in console output.
+The package has been fully tested on Mac/Linux, with limited testing on Windows.
 
-### I'm getting import errors. What's wrong?
+#### I'm getting import errors. What's wrong?
 
 First, ensure all dependencies are installed:
 
@@ -50,42 +50,20 @@ For development installations, make sure you're in the correct directory and usi
 
 <br/>
 
-## Model Selection & Usage
+### Model Selection & Usage
 
-### Should I use the 1D or 2D model?
+#### How do I choose the grid resolution (`n_points`)?
 
-**Use the 1D model** (`DiskModel1D`) when:
-- You only need midplane density profiles
-- You're doing parameter surveys or sensitivity studies
-- Computational speed is critical (1D models run in seconds)
-- You're validating physical intuition about radial structure
+**Minimum requirement**: 200 grid points for 1D models and 1000x1000 grid points for 2D models (enforced)
 
-**Use the 2D model** (`DiskModel2D`) when:
-- You need full vertical structure
-- You're generating inputs for 3D radiative transfer codes
-- You want to study disk surface and wind launching regions
-- You're investigating vertical temperature gradients and hydrostatic equilibrium
+**Recommended for most applications**: >1000 grid points
 
-The 1D model is ~100× faster but provides less information. For most chemical modeling applications, the 2D model is recommended.
+Increasing resolution improves accuracy but increases runtime, especially for 2D models.
 
-### How do I choose the grid resolution (`n_points`)?
+NOTE: If you need a lower-resolution 2D model (e.g., for use as input to thermochemical calculations), first compute the `PUFFIN` model with at least 1000 grid points, and then regrid it to the desired resolution (see below).
 
-**Minimum requirement**: 200 grid points (enforced by validation)
 
-**Recommended for most applications**: 1000 grid points (default)
-
-**Higher resolution (1500-2000)**: Use when:
-- Studying sharp density gradients in the disk-wind transition
-- Ensuring convergence in 2D hydrostatic equilibrium iterations
-- Generating high-fidelity inputs for detailed radiative transfer
-
-**Lower resolution (200-500)**: Acceptable for:
-- Quick parameter space exploration
-- 1D models where you'll regrid the output afterward
-
-Note: Increasing resolution improves accuracy but increases runtime, especially for 2D models.
-
-### What grid size should I use?
+#### What grid size should I use?
 
 The default grid size is `min(8 × r_d, 800)` AU, which captures the disk and immediate wind region.
 
@@ -96,8 +74,7 @@ The default grid size is `min(8 × r_d, 800)` AU, which captures the disk and im
 
 **Decrease `gridsize` when**:
 - Focusing on the inner disk structure
-- Computational memory is limited
-- You're only interested in the disk interior
+- Wind structure is minimally extended
 
 <br/>
 
@@ -105,37 +82,27 @@ The default grid size is `min(8 × r_d, 800)` AU, which captures the disk and im
 
 <br/>
 
-## Parameter Ranges & Validation
+### Parameter Ranges & Validation
 
-### What happens if I use parameters outside the validated range?
+#### What happens if I use parameters outside the validated range?
 
-PUFFIN will raise a `ValueError` if you attempt to use parameters outside these ranges:
+`PUFFIN` will raise a `ValueError` if you attempt to use parameters outside these ranges:
 - Stellar mass: 0.3 to 3.0 M☉
 - Disk radius: 20 to 150 AU  
 - Surface density: 10 to 10,000 g cm⁻²
 - FUV field: 100 to 100,000 G₀
 
-These limits reflect the calibration against the FRIED grid. Using parameters outside these ranges may produce physically unrealistic results.
+These limits reflect the calibration against the `FRIED` grid. Using parameters outside these ranges may produce physically unrealistic results.
 
-### Can I extrapolate beyond the validated ranges?
+#### Can I extrapolate beyond the validated ranges?
 
-While PUFFIN won't prevent you from modifying the code to extrapolate, **this is strongly discouraged** unless you:
+While you could technically modify the code to extrapolate, **this is strongly discouraged** unless you:
 
-1. Carefully validate output structures against physical expectations
+1. Carefully validate output structures against reasonable expectations
 2. Have independent constraints (e.g., hydrodynamical simulations) to compare against
 3. Clearly document that you're operating outside the validated regime
 
-The parametric prescriptions (especially the γ scaling and plateau transitions) were calibrated specifically for the validated parameter space and may not generalize well.
-
-### Why is my surface density at 1 AU so high/low?
-
-The surface density normalization `sigma_1au` sets the overall disk mass scale. Typical values depend on your system:
-
-- **Low-mass disks** (M_disk ~ 10⁻⁴ M☉): σ₁ₐᵤ ~ 10-100 g cm⁻²
-- **Intermediate-mass disks** (M_disk ~ 10⁻³ M☉): σ₁ₐᵤ ~ 100-1000 g cm⁻²
-- **Massive disks** (M_disk ~ 10⁻² M☉): σ₁ₐᵤ ~ 1000-10,000 g cm⁻²
-
-Remember that σ ∝ r⁻¹ with exponential tapering, so the normalization at 1 AU propagates throughout the disk. If you know your desired disk mass, you can use `helpers.calculate_disk_mass()` to iterate toward the correct normalization.
+The parametric prescriptions were calibrated specifically for the validated parameter space and may not generalize well.
 
 <br/>
 
@@ -143,15 +110,15 @@ Remember that σ ∝ r⁻¹ with exponential tapering, so the normalization at 1
 
 <br/>
 
-## Mass-Loss Rates
+### Mass-Loss Rates
 
-### How is the mass-loss rate determined?
+#### How is the mass-loss rate determined?
 
-If you don't provide `m_dot` explicitly, PUFFIN interpolates from the FRIED grid (Haworth et al. 2018, 2023) using 4D linear interpolation across stellar mass, disk radius, surface density, and FUV field strength.
+If you don't provide `m_dot` explicitly, `PUFFIN` interpolates from the `FRIED` grid (Haworth et al. 2018, 2023) using 4D linear interpolation across stellar mass, disk radius, surface density, and FUV field strength.
 
 For 2D models, the interpolated value is scaled by a factor of 2 to account for systematic differences between 1D and 2D hydrodynamical simulations.
 
-### Can I specify my own mass-loss rate?
+#### Can I specify my own mass-loss rate?
 
 Yes! Simply pass the `m_dot` parameter (in M☉ yr⁻¹):
 
@@ -159,20 +126,7 @@ Yes! Simply pass the `m_dot` parameter (in M☉ yr⁻¹):
 model = puffin_disk.DiskModel1D(m_star, r_d, sigma_1au, FFUV_G0, m_dot=1e-7)
 ```
 
-This is useful when:
-- You have mass-loss rates from your own hydrodynamical simulations
-- You want to explore variations around the FRIED grid predictions
-- You're modeling systems with additional physics (e.g., magnetic fields) not captured in FRIED
-
-### What if interpolation fails or returns NaN?
-
-This occurs when your requested parameters fall outside the FRIED grid's interpolation domain. Possible solutions:
-
-1. Check that your parameters are within the validated ranges
-2. Explicitly provide `m_dot` based on physical estimates or scaling relations
-3. Adjust parameters slightly to move into the interpolation domain
-
-A warning message will indicate when interpolation fails.
+NOTE: If using a user-defined mass-loss rate, take care to ensure it is physically justified given the model input parameters.
 
 <br/>
 
@@ -180,9 +134,9 @@ A warning message will indicate when interpolation fails.
 
 <br/>
 
-## Output Interpretation & Usage
+### Output Interpretation & Usage
 
-### What do the output arrays represent?
+#### What do the output arrays represent?
 
 **1D Model** returns:
 - `radius`: Radial grid in AU (shape: `[n_points]`)
@@ -193,41 +147,31 @@ A warning message will indicate when interpolation fails.
 - `z_array`: Vertical grid in AU (shape: `[nz]`)
 - `density`: Total gas density in g cm⁻³ (shape: `[nz, nr]`)
 
-Both models also store component densities (disk, wind, plateau/bowl) as instance attributes for diagnostic purposes.
+Both models also store component densities (disk, wind, transition) as instance attributes for diagnostic purposes.
 
-### Can I use the temperature arrays for chemical modeling?
+#### Can I use the temperature arrays for chemical modeling?
 
 **No.** This is explicitly stated in the documentation but bears repeating:
 
 The temperature profiles computed during model construction are used **only** to establish the density structure through hydrostatic equilibrium. They do **not** represent self-consistent temperature fields for a given density distribution.
 
 For chemical modeling or synthetic observations, you must:
-1. Export PUFFIN density structures
-2. Pass them to a dedicated radiative transfer code (e.g., DALI, RADMC-3D, ProDiMo)
+1. Export `PUFFIN` density structures
+2. Pass them to a dedicated radiative transfer code (e.g., `DALI`, `RADMC-3D`, `ProDiMo`)
 3. Use the self-consistent temperature and radiation fields from that code
 
-### How do I convert PUFFIN output for use with other codes?
+#### How do I convert PUFFIN output for use with other codes?
 
-Most radiative transfer codes accept density grids in similar formats. Typical workflow:
-
-```python
-# Generate PUFFIN model
-r, z, rho = puffin_disk.DiskModel2D(m_star, r_d, sigma_1au, FFUV_G0).compute()
-
-# Convert to code-specific format (example for DALI)
-np.savetxt('density_structure.dat', 
-           np.column_stack([r_grid.ravel(), z_grid.ravel(), rho.ravel()]))
-```
+Most radiative transfer codes accept density grids in similar formats. An detailed example using PUFFIN with the `DALI` code is provided in the User Guide.
 
 Consult your radiative transfer code's documentation for specific input requirements (units, grid orientation, format).
 
-### What units should I use?
+#### What units should I use?
 
-PUFFIN uses the following units internally:
+`PUFFIN` uses the following units internally:
 - **Length**: AU (radii) and cm (internal calculations)
 - **Density**: g cm⁻³
 - **Temperature**: K
-- **Mass**: M☉
 - **Mass-loss rate**: M☉ yr⁻¹
 - **FUV field**: G₀ (Habing units, 1.6 × 10⁻³ erg cm⁻² s⁻¹)
 
@@ -239,12 +183,12 @@ All outputs use these same units, so you may need to convert for specific applic
 
 <br/>
 
-## Troubleshooting & Performance
+### Troubleshooting & Performance
 
-### My 2D model is taking a very long time to run. Is this normal?
+#### My 2D model is taking a very long time to run. Is this normal?
 
 Typical runtimes depend on resolution:
-- **1000 grid points**: ~1-3 minutes
+- **1000 grid points**: ~2-3 minutes
 - **1500 grid points**: ~5-10 minutes
 - **2000 grid points**: ~15-30 minutes
 
@@ -252,10 +196,8 @@ If your model is taking significantly longer:
 
 1. **Check your grid resolution**: Is `n_points` unnecessarily high?
 2. **Verify convergence**: Look for console messages about iteration progress
-3. **Check parameter values**: Extreme FUV fields or small disk radii can slow convergence
-4. **Monitor memory usage**: Very high resolution can cause swapping on systems with limited RAM
 
-### The model returned an error message. What does it mean?
+#### The model returned an error message. What does it mean?
 
 Common error messages:
 
@@ -272,17 +214,8 @@ Common error messages:
    - Adjusting the temperature gradient parameter `k` (default: 1.75)
    - Checking for extreme parameter combinations
 
-### Why do I see different Unicode characters on Windows vs Mac/Linux?
 
-PUFFIN detects your operating system and uses ASCII replacements for Unicode box-drawing characters and superscripts on Windows to ensure compatibility. This is purely cosmetic and doesn't affect model calculations.
-
-You can suppress console output entirely with `verbose=False`:
-
-```python
-model = puffin_disk.DiskModel2D(m_star, r_d, sigma_1au, FFUV_G0, verbose=False)
-```
-
-### How do I access individual density components?
+#### How do I access individual density components?
 
 After running the model, you can access:
 
@@ -305,62 +238,53 @@ These are useful for understanding which component dominates in different region
 
 <br/>
 
-## Physical Model & Limitations
+### Physical Model & Limitations
 
-### What physics is included in PUFFIN?
+#### What physics is included in PUFFIN?
 
-PUFFIN models:
+`PUFFIN` models:
 - Power-law disk surface density with exponential tapering
 - Vertical hydrostatic equilibrium (2D model)
-- FUV heating in photodissociation regions (PDRs)
+- FUV heating in photodissociation region (PDR)
 - Spherically diverging photoevaporative wind
 - Smooth disk-wind transition regions
 
-### What physics is NOT included?
+#### What physics is NOT included?
 
-PUFFIN does **not** model:
+`PUFFIN` does **not** model:
 - Internal photoevaporation from the central star
 - External EUV radiation
 - Magnetic fields or MHD effects
 - Time evolution or dynamical changes
 - Dust dynamics (assumes well-mixed gas and dust for temperature structure only)
 - Detailed chemical networks (use radiative transfer codes for this)
+- Lots of other things!
 
 If these effects are important for your system, you'll need hydrodynamical simulations or specialized codes.
 
-### How accurate are the density structures?
+#### How accurate are the density structures?
 
-PUFFIN reproduces hydrodynamical simulations with typical factor-of-2 accuracy across ≥98% of the validated parameter space. Larger deviations can occur:
+`PUFFIN` reproduces hydrodynamical simulations with typical factor-of-a-few accuracy across ≥98% of the validated parameter space. Larger deviations can occur:
 - Near sharp density gradients in the disk-wind interface
 - In regions with strong FUV irradiation gradients
 - At the edges of the validated parameter space
 
 For most chemical modeling applications, this accuracy is sufficient given other uncertainties in disk properties.
 
-### Why does the plateau parameter λ depend on r_d and F_FUV?
 
-The plateau region represents an extended disk atmosphere produced by external FUV irradiation. Its extent depends on:
-- **Disk radius** (`r_d`): Larger disks have more extended plateaus
-- **FUV field strength**: Stronger fields produce sharper disk-wind transitions
-
-The parametrization `λ = r_d^p + (F_FUV/100)^q` with p=0.2 and q=0.4 was empirically calibrated to match hydrodynamical simulations. You can adjust `p` and `q` if you have specific constraints, but the defaults are recommended.
-
-### What is the `gamma` parameter and when should I change it?
+#### What is the `gamma` parameter and when should I change it?
 
 The `gamma` parameter controls the steepness of the exponential disk taper:
 
 Σ(r) ∝ exp[−(r/r_d)^γ]
 
-By default, PUFFIN calculates γ using:
+By default, `PUFFIN` calculates γ using:
 
 γ = 0.77 × (M_*/M☉)^0.10 × (r_d/AU)^0.78 × (F_FUV/100 G₀)^0.07
 
-This ensures physically motivated tapering. You should only override this if:
-- You have specific observational constraints on the outer disk profile
-- You're testing sensitivity to the taper steepness
-- You're matching a specific hydrodynamical model
+where the coefficients were obtained using MCMC fitting to the `FRIED` grid of hydrodynamical simulations.
 
-Typical values range from γ ~ 2-4, with higher values producing sharper cutoffs.
+`PUFFIN` also allows for user-defined values of `gamma`.
 
 <br/>
 
@@ -368,11 +292,20 @@ Typical values range from γ ~ 2-4, with higher values producing sharper cutoffs
 
 <br/>
 
-## Best Practices & Recommendations
+### Best Practices & Recommendations
 
-### How do I cite PUFFIN in my research?
+#### What's the recommended workflow for a chemical modeling project?
 
-If you use PUFFIN, please cite:
+1. **Define your disk parameters** based on observations or theoretical expectations
+2. **Generate the density structure** using PUFFIN 2D model
+3. **Validate the structure** by plotting and checking for physical reasonableness
+4. **Export to radiative transfer** (e.g., `DALI`, `ProDiMo`) for self-consistent temperature/radiation
+5. **Run chemistry** on the full 2D structure with proper temperature/radiation fields
+6. **Generate observables** and compare with data
+
+#### How do I cite PUFFIN in my research?
+
+If you use `PUFFIN`, please cite:
 
 **Primary reference:**
 ```
@@ -386,28 +319,8 @@ Haworth et al. (2018), MNRAS, 481, 452
 Haworth et al. (2023), MNRAS, 526, 4315
 ```
 
-### What's the recommended workflow for a chemical modeling project?
 
-1. **Define your disk parameters** based on observations or theoretical expectations
-2. **Generate the density structure** using PUFFIN 2D model
-3. **Validate the structure** by plotting and checking for physical reasonableness
-4. **Export to radiative transfer** (e.g., DALI, RADMC-3D) for self-consistent temperature/radiation
-5. **Run chemistry** on the full 3D structure with proper temperature/radiation fields
-6. **Generate observables** and compare with data
-
-Never skip step 4—using PUFFIN temperatures directly for chemistry will give incorrect results.
-
-### How often should I expect to update PUFFIN?
-
-Check the GitHub repository and PyPI for updates. Significant changes will be announced in release notes. For critical research, pin your version:
-
-```bash
-pip install puffin_disk==1.0.0
-```
-
-This ensures reproducibility across your project.
-
-### Where can I get help or report bugs?
+#### Where can I get help or report bugs?
 
 - **Documentation**: [https://puffin.readthedocs.io](https://puffin.readthedocs.io)
 - **GitHub Issues**: [https://github.com/lukekeyte/PUFFIN](https://github.com/lukekeyte/PUFFIN)
@@ -425,9 +338,9 @@ When reporting issues, please include:
 
 <br/>
 
-## Advanced Usage
+### Advanced Usage
 
-### Can I modify the source code for my specific application?
+#### Can I modify the source code for my specific application?
 
 Yes! PUFFIN is open-source under the MIT License. You're welcome to:
 - Modify prescriptions for your specific needs
@@ -436,7 +349,7 @@ Yes! PUFFIN is open-source under the MIT License. You're welcome to:
 
 If you make improvements that might benefit the community, please consider contributing them back via a pull request.
 
-### How do I run PUFFIN in batch mode for parameter surveys?
+#### How do I run PUFFIN in batch mode for parameter surveys?
 
 Suppress verbose output and wrap in a loop:
 
@@ -459,46 +372,41 @@ for m_star in masses:
         results.append((m_star, FFUV_G0, r, rho))
 ```
 
-For large surveys, consider parallelization with `multiprocessing` or `joblib`.
 
-### How do I interpolate PUFFIN output onto a different grid?
+#### How do I interpolate PUFFIN output onto a different grid?
 
-Use scipy's interpolation tools:
-
-```python
-from scipy.interpolate import interp1d
-
-# 1D example
-f = interp1d(r_array, rho_array, kind='linear', bounds_error=False, fill_value=0)
-new_r = np.linspace(0.1, 800, 2000)
-new_rho = f(new_r)
-
-# 2D example
-from scipy.interpolate import griddata
-points = np.array([[r, z] for z_idx, z in enumerate(z_array) 
-                            for r_idx, r in enumerate(r_array)])
-values = density.ravel()
-new_rho_2d = griddata(points, values, (new_r_grid, new_z_grid), method='linear')
-```
-
-### Can I access the FRIED grid data directly?
-
-The FRIED lookup table is included with PUFFIN in the package data. You can access it using:
+Use `scipy` interpolation tools:
 
 ```python
-from pathlib import Path
-import numpy as np
+from scipy.interpolate import RegularGridInterpolator
 
-# Find package directory
-import puffin_disk
-package_dir = Path(puffin_disk.__file__).parent
+# Define lower resolution grid 200x200)
+n_r_new = 200
+n_z_new = 200
 
-# Load FRIED data
-data_file = package_dir / 'data' / 'FRIEDV2_ALL_fPAH1p0_growth.dat'
-data = np.loadtxt(data_file)
+# Create grid
+r_array = np.logspace(np.log10(r_array_highres[0]), np.log10(r_array_highres[-1]), n_r_new)
+z_min = 1e-2  # Small offset to avoid log(0)
+z_array_log = np.logspace(np.log10(z_min), np.log10(z_array_highres[-1]), n_z_new - 1)
+z_array = np.concatenate([[0.0], z_array_log])  # z needs to start at 0
 
-# Columns: m_star, r_d, sigma_1au, _, F_FUV, log_mdot
+# Create interpolator for high-resolution density
+interpolator = RegularGridInterpolator(
+    (r_array_highres, z_array_highres), 
+    rho_highres.T,  # Transpose to (nr, nz) for interpolator
+    method='linear',
+    bounds_error=False,
+    fill_value=1e-30
+)
+
+# Interpolate to DALI grid
+rho_new = np.zeros((n_z_new, n_r_new))
+for i in range(n_r_new):
+    for j in range(n_z_new):
+        rho_new[j, i] = interpolator([r_array[i], z_array[j]])
 ```
 
-This can be useful for plotting mass-loss rate trends or implementing your own interpolation schemes.
+#### Can I access the FRIED grid data directly?
+
+Yes! The `FRIED` data is available at https://github.com/thaworth-qmul/FRIEDgrid
 
