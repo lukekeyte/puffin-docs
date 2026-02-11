@@ -8,13 +8,13 @@ This comprehensive guide provides detailed tutorials, advanced usage examples, a
 
 <br/>
 
-## Tutorial 1: Basic 1D Model
+### Tutorial 1: Basic 1D Model
 
-### Overview
+#### Overview
 
 The 1D model computes the radial density structure along the midplane. This is the simplest and fastest option, ideal for quick parameter studies.
 
-### Basic Usage
+#### Basic Usage
 
 ```python
 import puffin_disk
@@ -42,11 +42,11 @@ plt.savefig('density_1d.png', dpi=300)
 plt.show()
 ```
 
-### Understanding the Output
+#### Understanding the Output
 
 The `compute()` method returns two arrays:
 - **`r_array`**: Radial grid in AU (default: 200 logarithmically-spaced points)
-- **`rho_array`**: Gas density at the midplane in g cmâ»Â³
+- **`rho_array`**: Gas density at the midplane in g cm⁻³
 
 The model automatically combines three components:
 1. **Disk interior**: Power-law surface density with exponential taper
@@ -60,7 +60,7 @@ rho_wind    = model.rho_wind      # Wind component only
 rho_plateau = model.rho_plateau   # Transition region
 ```
 
-### Key Features
+#### Key Features
 
 **Automatic mass-loss rate interpolation**: If you don't specify `m_dot`, `PUFFIN` automatically interpolates from the `FRIED` grid based on your input parameters:
 
@@ -73,7 +73,7 @@ r_array, rho_array = model.compute()
 print(f"Interpolated mass-loss rate: {model.m_dot:.2e} M_sun/yr")
 ```
 
-**Console output**: By default, PUFFIN prints a formatted table showing all model parameters:
+**Console output**: By default, `PUFFIN` prints a formatted table showing all model parameters:
 
 ```
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ INITIALIZATION ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
@@ -106,13 +106,13 @@ model = puffin_disk.DiskModel1D(m_star, r_d, sigma_1au, F_FUV, verbose=False)
 
 <br/>
 
-## Tutorial 2: Basic 2D Model
+### Tutorial 2: Basic 2D Model
 
-### Overview
+#### Overview
 
 The 2D model expands the framework by incorporating the disk’s vertical structure under hydrostatic equilibrium, the photoevaporative wind, and a transition region that smoothly links the disk to the wind.
 
-### Basic Usage
+#### Basic Usage
 
 ```python
 import puffin_disk
@@ -143,7 +143,7 @@ plt.savefig('density_2d.png', dpi=300)
 plt.show()
 ```
 
-### Understanding the Output
+#### Understanding the Output
 
 The `compute()` method returns three arrays:
 - **`r_array`**: Radial grid in AU (default: 1000 points)
@@ -158,7 +158,7 @@ rho_disk = model.rho_disk        # Disk component with hydrostatic structure
 rho_wind = model.rho_wind        # Combined wind (spherical + transition)
 ```
 
-The typical runtime for a 2D model with n_points=1000 is ~2-3 minutes on a standard laptop.
+The typical runtime for a 2D model with `n_points=1000` is ~2-3 minutes on a standard laptop.
 
 <br/>
 
@@ -166,9 +166,9 @@ The typical runtime for a 2D model with n_points=1000 is ~2-3 minutes on a stand
 
 <br/>
 
-## Tutorial 3: Customizing Model Parameters
+### Tutorial 3: Customizing Model Parameters
 
-### Grid Resolution
+#### Grid Resolution
 
 **1D models**: Default is 200 points. Higher resolution is recommended for capturing sharper density gradients:
 
@@ -190,9 +190,9 @@ model = puffin_disk.DiskModel2D(m_star, r_d, sigma_1au, F_FUV, n_points=1000)
 model = puffin_disk.DiskModel1D(m_star, r_d, sigma_1au, F_FUV, n_points=2000)
 ```
 
-If you need a lower-resolution model (e.g., for use as input to thermochemical calculations), first compute the PUFFIN model with at least 1000 grid points, and then regrid it to the desired resolution.
+If you need a lower-resolution model (e.g., for use as input to thermochemical calculations), first compute the `PUFFIN` model with at least 1000 grid points, and then regrid it to the desired resolution.
 
-### Grid Size
+#### Grid Size
 
 The computational domain extends from 0 to `gridsize` (in AU). Default is `min(8 × r_d, 800)` AU. Generally, `8 × r_d` is required to capture the full extent of dense photoevaporative winds.
 
@@ -201,7 +201,7 @@ The computational domain extends from 0 to `gridsize` (in AU). Default is `min(8
 model = puffin_disk.DiskModel1D(m_star, r_d, sigma_1au, F_FUV, gridsize=1500)
 ```
 
-### Mass-Loss Rate
+#### Mass-Loss Rate
 
 Override automatic interpolation with your own value:
 
@@ -214,9 +214,9 @@ model = puffin_disk.DiskModel1D(m_star, r_d, sigma_1au, F_FUV, m_dot=1e-8)
 model = puffin_disk.DiskModel2D(m_star, r_d, sigma_1au, F_FUV, m_dot=1e-8)
 ```
 
-### Taper Parameter (γ)
+#### Taper Parameter (γ)
 
-The exponential tapering parameter `gamma` controls how steeply the disk truncates. PUFFIN uses an empirical scaling by default, but you can override it:
+The exponential tapering parameter `gamma` controls how steeply the disk truncates. `PUFFIN` uses an empirical scaling by default, but you can override it:
 
 ```python
 # Use default empirical prescription
@@ -229,9 +229,7 @@ model = puffin_disk.DiskModel1D(m_star, r_d, sigma_1au, F_FUV, gamma=4.0)
 model = puffin_disk.DiskModel1D(m_star, r_d, sigma_1au, F_FUV, gamma=2.0)
 ```
 
-Typical values: 1.5–4.0. Higher values create more abrupt disk truncation.
-
-### Transition Region Parameters
+#### Transition Region Parameters
 
 Fine-tune the disk-wind transition:
 
@@ -246,7 +244,7 @@ model = puffin_disk.DiskModel1D(m_star, r_d, sigma_1au, F_FUV, p=0.1, q=0.2)
 model = puffin_disk.DiskModel1D(m_star, r_d, sigma_1au, F_FUV, p=0.3, q=0.6)
 ```
 
-### Temperature Gradient Steepness (2D only)
+#### Temperature Gradient Steepness (2D only)
 
 Control the vertical temperature transition sharpness with parameter `k`:
 
@@ -261,7 +259,7 @@ model = puffin_disk.DiskModel2D(m_star, r_d, sigma_1au, F_FUV, k=3.0)
 model = puffin_disk.DiskModel2D(m_star, r_d, sigma_1au, F_FUV, k=1.0)
 ```
 
-### Hydrostatic Equilibrium Iterations (2D only)
+#### Hydrostatic Equilibrium Iterations (2D only)
 
 Increase iterations if the model fails to converge:
 
@@ -281,9 +279,7 @@ Most models converge within the default 20 iterations.
 
 <br/>
 
-## Tutorial 4: Parameter Space Exploration
-
-### Systematic Parameter Scans
+### Tutorial 4: Parameter Space Exploration
 
 Efficiently explore how disk properties vary across parameter space:
 
@@ -343,13 +339,13 @@ plt.show()
 
 <br/>
 
-## Tutorial 5: Integration with Chemical Models
+### Tutorial 5: Integration with Chemical Models
 
-### Using `PUFFIN` density structure as input to `DALI` chemical model
+#### Using `PUFFIN` density structure as input to `DALI` chemical model
 
 `DALI` (Bruderer et al. 2012, 2013) requires a specific `setup_grid.dat` file format that includes not only the gas density structure, but also grid cell boundaries, gas-to-dust ratios, and dust settling prescriptions. 
 
-Because PUFFIN computes only the gas density structure, converting PUFFIN outputs to DALI format requires you to specify additional disk properties:
+Because `PUFFIN` computes only the gas density structure, converting `PUFFIN` outputs to `DALI` format requires you to specify additional disk properties:
 - Gas-to-dust ratio in the shielded disk interior
 - Gas-to-dust ratio in the dust-depleted wind
 - Dust settling parameters (scale height and grain size distribution)
@@ -357,7 +353,7 @@ Because PUFFIN computes only the gas density structure, converting PUFFIN output
 
 This tutorial demonstrates an example workflow based on the implementation in Keyte & Haworth (2025), where the transition from disk to wind is defined using an arbitrary density threshold n=10⁸ cm⁻³. Note that these properties are science choices that depend on your specific research questions—there are no universal "correct" values.
 
-#### Step 1: Save PUFFIN Output
+##### Step 1: Save PUFFIN Output
 
 First, run `PUFFIN` and save the density structure:
 
@@ -442,7 +438,7 @@ print(f"Grid dimensions: {n_r} x {n_z}")
 print(f"Disk-wind boundary set at n = {n_threshold:.1e} cm^-3")
 ```
 
-#### Step 2: Create DALI Setup File
+##### Step 2: Create DALI Setup File
 
 Now create the DALI `setup_grid.dat` file. This includes additional physics choices about dust properties:
 
@@ -486,6 +482,10 @@ with open(outfile, "w") as f_new:
     
     # Loop over grid cells
     for i in range(n_r - 1):
+
+        # Since PUFFIN directly provides the gas density structure, we first compute
+        # h(r) from the gas density at each radius, then apply the 'standard' DALI
+        # dust prescriptions (Bruderer 2013, equations 2 and 3)
         
         # Calculate scale height at this radius
         # (defined where density drops to 1/sqrt(e) of midplane value)
@@ -526,6 +526,9 @@ with open(outfile, "w") as f_new:
             # ===============================================
             # LARGE GRAIN FRACTION (f_ls) - Dust Settling
             # ===============================================
+
+            # This part is a formulation of Eq. 2 and 3 from Bruderer 2013, using the
+            # scale height determined above,
             
             # Scale height angle and polar angle
             h = np.arctan(scaleheight_au / r_mid)
@@ -569,7 +572,7 @@ print(f"Disk-wind boundary: n > {n_threshold:.1e} cm^-3")
 print("Ready to run DALI with this grid")
 ```
 
-#### Understanding the DALI Format
+##### Understanding the DALI Format
 
 The `setup_grid.dat` file has the following structure:
 
@@ -590,14 +593,14 @@ The `setup_grid.dat` file has the following structure:
 9. **f_ls**: Large grain fraction (0-1)
 10. **region**: Region identifier (typically 1)
 
-#### Key Physics Choices
+##### Key Physics Choices
 
-When creating DALI input, you must specify dust parameters based on your science goals:
+When creating `DALI` input, you must specify dust parameters based on your science goals:
 
 **Gas-to-Dust Ratio:**
 - **`gd_disk`** (e.g., 100): Standard ISM value for shielded disk interior
 - **`gd_wind`** (e.g., 3000 or higher): Dust-depleted wind where grains have settled/been lost (eg. Facchini et al. 2016)
-- Transition based on density threshold (eg. Keyte & Haworth 2025) or optical depth τ = 1 threshold (eg. Keyte & Haworth 2026)
+- Disk/wind boundary based on eg. density threshold (see Keyte & Haworth 2025) or optical depth τ = 1 threshold (see Keyte & Haworth 2026)
 
 **Dust Settling Parameters:**
 - **`f`** (e.g., 0.9): Fraction of large grains at the midplane
@@ -611,11 +614,11 @@ The **f_ls** (large grain fraction) calculation implements a settling prescripti
 
 **Important Notes:**
 
-1. **Temperature fields**: As always, do NOT use `PUFFIN` temperatures. DALI will compute self-consistent temperatures through radiative transfer.
+1. **Temperature fields**: As always, do NOT use `PUFFIN` temperatures. `DALI` will compute self-consistent temperatures through radiative transfer.
 
 2. **Dust choices are yours**: The gas-to-dust ratios and settling parameters shown here are examples. Adjust based on your specific disk model and science questions.
 
-#### Verification
+##### Verification
 
 After creating the setup file, verify it looks correct:
 
@@ -665,16 +668,16 @@ plt.show()
 
 <br/>
 
-## Best Practices
+### Best Practices
 
-### Temperature and Radition Fields: Critical Warning
+#### Temperature and Radition Fields: Critical Warning
 
 **⚠️ NEVER use PUFFIN temperature/radiation fields directly for chemistry or radiative transfer.**
 
 The temperatures computed by `PUFFIN` are used *only* to establish the density structure through hydrostatic equilibrium. They are not self-consistent with the radiation field and should not be trusted for any downstream analysis.
 
 **Always:**
-1. Use PUFFIN to generate density structures only
+1. Use `PUFFIN` to generate density structures only
 2. Input these densities into proper radiative transfer codes (`DALI`, `RADMC-3D`, `ProDiMo`)
 3. Use the self-consistent temperatures and radiation fields from radiative transfer for chemistry
 
@@ -684,9 +687,9 @@ The temperatures computed by `PUFFIN` are used *only* to establish the density s
 
 <br/>
 
-## Troubleshooting
+### Troubleshooting
 
-### Common Issues
+#### Common Issues
 
 **Issue**: "Disk mass < 1e-5 M_sun" abort message
 
@@ -734,7 +737,7 @@ The temperatures computed by `PUFFIN` are used *only* to establish the density s
 
 **Issue**: Results don't match hydrodynamical simulations exactly
 
-**Expected**: PUFFIN is a parametric approximation with typical factor-of-a-few accuracy
+**Expected**: `PUFFIN` is a parametric approximation with typical factor-of-a-few accuracy
 
 **When to worry**: Deviations >5× suggest:
 - Parameters outside validated range
@@ -748,18 +751,18 @@ The temperatures computed by `PUFFIN` are used *only* to establish the density s
 <br/>
 
 
-## Further Resources
+### Further Resources
 
-### Code Repository
+#### Code Repository
 - GitHub: [https://github.com/lukekeyte/PUFFIN](https://github.com/lukekeyte/PUFFIN)
 - Report bugs, request features, or contribute improvements
 
-### Documentation
+#### Documentation
 - Full documentation: [https://puffin.readthedocs.io](https://puffin.readthedocs.io)
 - Physical model details: See "Physical Model" section
 - API reference: See source code docstrings
 
-### Key References
+#### Key References
 
 **PUFFIN framework:**
 - Keyte & Haworth (2026), arXiv:2602.02011
@@ -768,10 +771,8 @@ The temperatures computed by `PUFFIN` are used *only* to establish the density s
 - Haworth et al. (2018), MNRAS 481, 452
 - Haworth et al. (2023), MNRAS 526, 4315
 
-### Getting Help
+#### Getting Help
 
 1. **Check the documentation**: Most questions answered in Physical Model and FAQ sections
 2. **Email support**: l.keyte@qmul.ac.uk for technical questions
 3. **GitHub Issues**: For bug reports and feature requests
-
-For questions or support, please contact **l.keyte@qmul.ac.uk** or open an issue on [GitHub](https://github.com/lukekeyte/PUFFIN).
